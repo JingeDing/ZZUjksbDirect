@@ -213,7 +213,7 @@ for pop_user in user_pool:
     # 创建识别验证码的方法
     def captcha_bypass(img_link, header_ocr):
         # 尝试使用 ddddocr 从链接识别验证码
-        captcha_ocr = ddddocr.DdddOcr()
+        captcha_ocr = ddddocr.DdddOcr(show_ad=False)
         img_b = requests.get(img_link, headers=header_ocr, verify=False).content
         captcha_result = captcha_ocr.classification(img_b)
         return captcha_result
