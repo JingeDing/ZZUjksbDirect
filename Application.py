@@ -210,12 +210,40 @@ for pop_user in user_pool:
             print('发送结果的邮箱设置可能异常，请检查邮箱和密码配置，以及发信SMTP服务器配置.')
             raise smtplib.SMTPException
 
+    def switch_NUM(value):
+        switcher = {
+            '壹': 1,
+            '贰': 2,
+            '叁': 3,
+            '肆': 4,
+            '伍': 5,
+            '陆': 6,
+            '柒': 7,
+            '捌': 8,
+            '玖': 9,
+            '喜': 1,
+        }
+        return switcher.get(value,'wrong value')
+            
+            
     # 创建识别验证码的方法
     def captcha_bypass(img_link, header_ocr):
         # 尝试使用 ddddocr 从链接识别验证码
         captcha_ocr = ddddocr.DdddOcr(show_ad=False)
         img_b = requests.get(img_link, headers=header_ocr, verify=False).content
         captcha_result = captcha_ocr.classification(img_b)
+        res=captcha_result
+        i =0
+        reslist=[]
+        while(i < len(res)):
+            s = res[i]
+            reslist.append(switch_NUM(s))
+            i = i + 1
+        newStr = ''
+        for i in reslist:
+            newStr = newStr +str(i)
+            newStr+=''
+        captcha_result=newStr
         return captcha_result
 
 
